@@ -1,0 +1,67 @@
+{
+  // DevWeaver-Lite MCP configuration for Windsurf IDE.
+  // Copy this file to .windsurf/mcp.json in your project root,
+  // or configure via Windsurf Settings > Extensions > MCP.
+  // If your project already has .windsurf/mcp.json, merge the "mcpServers" entries below into it.
+  //
+  // GITHUB_TOKEN must be set in your shell environment before launching Windsurf.
+  // playwright and filesystem use npx -y (auto-downloads on first use, Node.js >= 18 required).
+  // context7 is an HTTP server - no local process required.
+  // Uncomment memory, fastapi_docs, or influxdb entries below as needed.
+  "mcpServers": {
+    "github": {
+      "command": "github-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+      }
+    },
+    "context7": {
+      "serverUrl": "https://mcp.context7.com/mcp"
+    },
+    "playwright": {
+      // Optional: browser automation and E2E testing. Auto-downloads on first use.
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp"]
+    },
+    "filesystem": {
+      // Optional: access devweaver-lite L3 references (standards/, references/, librarian/).
+      // Replace the path below with the absolute path to your devweaver-lite directory
+      // if devweaver-lite is not inside your project workspace.
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}"
+      ]
+    }
+    // Optional: cross-session memory. Uncomment to enable.
+    // ,
+    // "memory": {
+    //   "command": "npx",
+    //   "args": ["-y", "@modelcontextprotocol/server-memory"],
+    //   "env": {
+    //     "MEMORY_FILE_PATH": "${workspaceFolder}/.windsurf/mcp_memory.json"
+    //   }
+    // }
+    //
+    // Conditional: uncomment if project runs a FastAPI service locally.
+    // ,
+    // "fastapi_docs": {
+    //   "command": "uvx",
+    //   "args": ["fastapi-mcp", "--host", "localhost", "--port", "8000"]
+    // }
+    //
+    // Conditional: uncomment if project has an IoT/InfluxDB module.
+    // ,
+    // "influxdb": {
+    //   "command": "uvx",
+    //   "args": ["influxdb-mcp"],
+    //   "env": {
+    //     "INFLUXDB_URL": "http://localhost:8086",
+    //     "INFLUXDB_TOKEN": "YOUR_INFLUXDB_TOKEN_HERE",
+    //     "INFLUXDB_ORG": "YOUR_ORG_HERE"
+    //   }
+    // }
+  }
+}

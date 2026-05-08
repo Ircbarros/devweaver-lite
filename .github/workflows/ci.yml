@@ -1,0 +1,129 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-markdown:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install markdownlint-cli2
+        run: npm install -g markdownlint-cli2
+
+      - name: Run markdownlint
+        run: markdownlint-cli2 "**/*.md" "!**/node_modules/**" "!**/.git/**"
+
+  lint-yaml:
+    name: Lint YAML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Run yamllint
+        run: yamllint .github/workflows/
+
+  lint-json:
+    name: Validate JSON
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate JSON files (strict JSON only, skip JSONC)
+        run: |
+          # JSONC files (IDE configs with // comments) are excluded from strict parsing:
+          #   .vscode/mcp.json, .cursor/mcp.json, .windsurf/mcp.json
+          find . -name "*.json" \
+            -not -path "*/node_modules/*" \
+            -not -path "*/.git/*" \
+            -not -path "*/.vscode/mcp.json" \
+            -not -path "*/.cursor/mcp.json" \
+            -not -path "*/.windsurf/mcp.json" | while read file; do
+            node -e "JSON.parse(require('fs').readFileSync('$file','utf8'))" \
+              && echo "OK: $file" \
+              || { echo "FAIL: $file"; exit 1; }
+          done
+
+  secret-scan:
+    name: Secret Scan (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  lint-filenames:
+    name: Check File Standards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for em-dashes in instruction files (R-DS-10)
+        run: |
+          if grep -rn $'\xe2\x80\x94' \
+              --include="*.md" \
+              --exclude-dir=node_modules \
+              --exclude-dir=.git \
+              provider-specific/ SYSTEM_PROMPT.md; then
+            echo "ERROR: em-dash found in instruction files (violates R-DS-10)"
+            exit 1
+          fi
+          echo "R-DS-10 OK: no em-dashes in instruction files"
+
+      - name: Check activation file line counts (R-PD-01, max 500)
+        run: |
+          failed=0
+          for f in \
+            provider-specific/copilot/.github/copilot-instructions.md \
+            provider-specific/cursor/.cursorrules \
+            provider-specific/windsurf/.windsurfrules \
+            provider-specific/claude/CLAUDE.md \
+            provider-specific/gemini/gemini_context.md \
+            provider-specific/openai/openai_context.md \
+            provider-specific/openrouter/openrouter_context.md \
+            provider-specific/kimi/kimi_context.md \
+            provider-specific/mistral/mistral_context.md \
+            provider-specific/openclaw/openclaw_context.md; do
+            lines=$(wc -l < "$f")
+            if [ "$lines" -gt 500 ]; then
+              echo "FAIL: $f has $lines lines (R-PD-01 max 500)"
+              failed=1
+            else
+              echo "OK: $f ($lines lines)"
+            fi
+          done
+          exit $failed

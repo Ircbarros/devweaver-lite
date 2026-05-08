@@ -1,0 +1,51 @@
+name: Feature Request
+description: Suggest a new provider, standard, reference, or capability
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement to DevWeaver-Lite!
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type of Feature
+      options:
+        - New AI provider support
+        - New MCP server integration
+        - Improved standard or rule
+        - New reference document
+        - New template
+        - Framework integration example
+        - Tooling / CI improvement
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this solve? What is currently missing?
+      placeholder: "e.g. There is no activation file for Grok (xAI) users"
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe what you would like to see added or changed
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: good_first_issue
+    attributes:
+      label: Complexity
+      options:
+        - label: This looks like a good first issue (small scope, well-defined)

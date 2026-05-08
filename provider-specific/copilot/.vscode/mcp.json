@@ -1,0 +1,80 @@
+{
+  // DevWeaver-Lite MCP configuration for VS Code / GitHub Copilot.
+  // Copy this file to .vscode/mcp.json in your project root.
+  // If your project already has .vscode/mcp.json, merge the "servers" entries below into it.
+  //
+  // Required: github (HTTP, no token - uses Copilot session), context7 (HTTP, no install)
+  // Optional: playwright (npx, auto-downloads on first use), filesystem (for L3 reference reads)
+  //
+  // No npm install required. npx -y auto-downloads packages on first use.
+  // Node.js >= 18 required only if using playwright or filesystem servers.
+  "servers": {
+    "github": {
+      // Native GitHub Copilot MCP - no GITHUB_TOKEN needed.
+      // Authenticated via your VS Code Copilot sign-in.
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp"
+    },
+    "context7": {
+      // Context7 cloud MCP - real-time library documentation.
+      // No local process, no API key required for public endpoint.
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "playwright": {
+      // Optional: browser automation and E2E testing. Auto-downloads on first use.
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp"]
+    },
+    "filesystem": {
+      // Optional: access devweaver-lite L3 references (standards/, references/, librarian/).
+      // Replace the path below with the absolute path to your devweaver-lite directory,
+      // or add ${workspaceFolder} if devweaver-lite is inside your project.
+      // You can list multiple paths as additional args.
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}"
+      ]
+    }
+    // Optional: cross-session memory. Uncomment to enable.
+    // ,
+    // "memory": {
+    //   "type": "stdio",
+    //   "command": "npx",
+    //   "args": ["-y", "@modelcontextprotocol/server-memory"],
+    //   "env": {
+    //     "MEMORY_FILE_PATH": "${workspaceFolder}/.vscode/mcp_memory.json"
+    //   }
+    // }
+    //
+    // Conditional: uncomment if project runs a FastAPI service locally.
+    // ,
+    // "fastapi_docs": {
+    //   "type": "stdio",
+    //   "command": "uvx",
+    //   "args": ["fastapi-mcp", "--host", "localhost", "--port", "8000"]
+    // }
+    //
+    // Conditional: uncomment if project has an IoT/InfluxDB module.
+    // ,
+    // "influxdb": {
+    //   "type": "stdio",
+    //   "command": "uvx",
+    //   "args": ["influxdb-mcp"],
+    //   "env": {
+    //     "INFLUXDB_URL": "${input:influxdb_url}",
+    //     "INFLUXDB_TOKEN": "${input:influxdb_token}",
+    //     "INFLUXDB_ORG": "${input:influxdb_org}"
+    //   }
+    // }
+  },
+  "inputs": [
+    // Add inputs here for any secrets your optional MCPs need.
+    // Example for InfluxDB:
+    // { "id": "influxdb_token", "type": "promptString", "description": "InfluxDB API token", "password": true }
+  ]
+}

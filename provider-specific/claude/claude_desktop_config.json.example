@@ -1,0 +1,49 @@
+{
+  "_readme": "Claude Desktop MCP config for DevWeaver-Lite. Copy relevant entries to: macOS: ~/Library/Application Support/Claude/claude_desktop_config.json | Linux: ~/.config/claude/claude_desktop_config.json | Replace YOUR_GITHUB_TOKEN_HERE with your token. Replace /absolute/path/to/your/project with your project path. Restart Claude Desktop after editing. Node.js >= 18 required for npx servers.",
+  "mcpServers": {
+    "github": {
+      "command": "github-mcp-server",
+      "args": ["stdio"],
+      "env": {
+        "GITHUB_TOKEN": "YOUR_GITHUB_TOKEN_HERE"
+      }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.context7.com/mcp"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/absolute/path/to/your/project"
+      ]
+    }
+  },
+  "_optional_servers_readme": "Uncomment / add entries below as needed. Each entry goes inside mcpServers.",
+  "_memory_example": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-memory"],
+    "env": {
+      "MEMORY_FILE_PATH": "/absolute/path/to/your/project/.claude/mcp_memory.json"
+    }
+  },
+  "_fastapi_docs_example": {
+    "command": "uvx",
+    "args": ["fastapi-mcp", "--host", "localhost", "--port", "8000"]
+  },
+  "_influxdb_example": {
+    "command": "uvx",
+    "args": ["influxdb-mcp"],
+    "env": {
+      "INFLUXDB_URL": "http://localhost:8086",
+      "INFLUXDB_TOKEN": "YOUR_INFLUXDB_TOKEN_HERE",
+      "INFLUXDB_ORG": "YOUR_ORG_HERE"
+    }
+  }
+}

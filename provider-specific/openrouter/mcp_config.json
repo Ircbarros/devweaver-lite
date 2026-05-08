@@ -1,0 +1,126 @@
+{
+  "provider": "openrouter-agnostic",
+  "skill": "devweaver-lite",
+  "context_budget": 120000,
+  "trigger_source": "MANUAL",
+  "interrupt_before": [
+    "confirm_gate",
+    "git_gate"
+  ],
+  "allowed_tools": {
+    "github": [
+      "list_repos",
+      "get_file_contents",
+      "create_or_update_file",
+      "list_branches",
+      "create_branch",
+      "create_pull_request",
+      "get_pull_request",
+      "list_issues",
+      "create_issue"
+    ],
+    "context7": [
+      "resolve_library_id",
+      "get_library_docs"
+    ],
+    "playwright": [
+      "browser_navigate",
+      "browser_screenshot",
+      "browser_click",
+      "browser_type"
+    ],
+    "filesystem": [
+      "read_file",
+      "write_file",
+      "list_directory",
+      "create_directory"
+    ],
+    "memory": [
+      "create_entities",
+      "search_nodes",
+      "open_nodes",
+      "read_graph"
+    ],
+    "fastapi_docs": [
+      "get_openapi_schema",
+      "get_routes"
+    ],
+    "influxdb": [
+      "query"
+    ]
+  },
+  "write_approval_required": {
+    "playwright": true,
+    "filesystem": [
+      "write_file",
+      "create_directory"
+    ],
+    "github": [
+      "create_or_update_file",
+      "create_branch",
+      "create_pull_request",
+      "create_issue"
+    ]
+  },
+  "mcp_servers": {
+    "github": {
+      "command": "github-mcp-server",
+      "args": [
+        "stdio"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+      }
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "transport": "http",
+      "env": {
+        "CONTEXT7_API_KEY": "${env:CONTEXT7_API_KEY}"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "."
+      ]
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "fastapi_docs": {
+      "conditional": true,
+      "note": "Enable only when target project runs a FastAPI service locally. Install via: pip install fastapi-mcp OR use the tadata-org/fastapi_mcp server. Set --host and --port to match your FastAPI service.",
+      "example": {
+        "command": "uvx",
+        "args": [
+          "fastapi-mcp",
+          "--host",
+          "localhost",
+          "--port",
+          "8000"
+        ]
+      }
+    },
+    "influxdb": {
+      "conditional": true,
+      "note": "Enable only when target project includes an IoT module with InfluxDB. Configure INFLUXDB_URL, INFLUXDB_TOKEN, INFLUXDB_ORG env vars.",
+      "env": {
+        "INFLUXDB_URL": "${env:INFLUXDB_URL}",
+        "INFLUXDB_TOKEN": "${env:INFLUXDB_TOKEN}",
+        "INFLUXDB_ORG": "${env:INFLUXDB_ORG}"
+      }
+    }
+  },
+  "notes": "Context budget 120 000 tokens (model-dependent). Override per routed model. See rule_context_window.md section 6."
+}
