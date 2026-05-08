@@ -83,7 +83,7 @@ two HTTP endpoints, and every session runs the same disciplined process.
 
 ## In Action
 
-**Implementing a new feature** -- the agent scans the knowledge catalog,
+**Implementing a new feature**: The agent scans the knowledge catalog,
 retrieves live library docs via Context7, presents a C4 architecture diagram,
 waits for CONFIRM approval, then builds with tests:
 
@@ -91,7 +91,7 @@ waits for CONFIRM approval, then builds with tests:
   <img src="assets/vscode_example.png" alt="DevWeaver-Lite in VS Code Copilot -- architecture review and implementation phase" width="800">
 </p>
 
-**Refactoring an existing project** -- the agent explores the structure, reads
+**Refactoring an existing project**: The agent explores the structure, reads
 the devweaver-lite standards, validates the current architecture, reviews for
 code smells and security issues, then produces a scoped refactor plan with tests:
 
@@ -99,7 +99,7 @@ code smells and security issues, then produces a scoped refactor plan with tests
   <img src="assets/vscode_example_refactor.png" alt="DevWeaver-Lite REFACTOR mode in VS Code Copilot -- exploring project structure and planning refactor" width="460">
 </p>
 
-**Running the VALIDATE phase** -- the agent executes the test suite, runs
+**Running the VALIDATE phase**: The agent executes the test suite, runs
 bandit and pip-audit security scans, and presents the full results before
 the GIT GATE:
 
@@ -110,17 +110,17 @@ the GIT GATE:
 **Other things you can ask DevWeaver-Lite to do:**
 
 - Build a new API from scratch (FastAPI, Pydantic, OpenAPI docs) following the
-  naming and module structure standards
-- Add a Svelte or SvelteKit frontend to an existing Python backend
-- Review an existing codebase for OWASP LLM Top 10 vulnerabilities
-- Improve test coverage to the 80% threshold on a legacy module
+  naming and module structure standards;
+- Add a Svelte or SvelteKit frontend to an existing Python backend;
+- Review an existing codebase for OWASP LLM Top 10 vulnerabilities;
+- Improve test coverage to the 80% threshold on a legacy module;
 - Generate a full C4 architecture diagram set (Level 1, 2, 3) for a system
-  you need to document or present
-- Resume a partially finished feature from a known plan phase (CONTINUE mode)
-- Migrate a monolith module into a bounded, independently testable structure
-- Audit and pin all dependency versions before a production release
-- Set up Playwright E2E tests for any user-facing flow
-- Write an ADR for a technology or architecture decision you have already made
+  you need to document or present;
+- Resume a partially finished feature from a known plan phase (CONTINUE mode);
+- Migrate a monolith module into a bounded, independently testable structure;
+- Audit and pin all dependency versions before a production release;
+- Set up Playwright E2E tests for any user-facing flow;
+- Write an ADR for a technology or architecture decision you have already made.
 
 ---
 
@@ -222,8 +222,7 @@ For VS Code Copilot, GitHub and Context7 are HTTP -- zero install.
 
 For IDE providers (Copilot, Cursor, Windsurf): the agent uses the workspace path automatically.
 
-For chat and API providers (Claude, Gemini, OpenAI, OpenRouter, Kimi, Mistral, OpenClaw):
-tell the agent at the start of each session:
+For chat and API providers (Claude, Gemini, OpenAI, OpenRouter, Kimi, Mistral, OpenClaw), tell the agent at the start of each session:
 
 ```text
 Work on the project at /path/to/my-project
