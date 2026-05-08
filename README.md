@@ -83,27 +83,50 @@ two HTTP endpoints, and every session runs the same disciplined process.
 
 ## In Action
 
-**Building a new feature** -- the agent scans the knowledge catalog, retrieves
-live library docs, presents a C4 architecture diagram, waits for approval, then
-implements with tests:
+**Implementing a new feature** -- the agent scans the knowledge catalog,
+retrieves live library docs via Context7, presents a C4 architecture diagram,
+waits for CONFIRM approval, then builds with tests:
 
 <p align="center">
-  <img src="assets/vscode_example.png" alt="DevWeaver-Lite running in VS Code Copilot -- architecture review and implementation phase" width="800">
+  <img src="assets/vscode_example.png" alt="DevWeaver-Lite in VS Code Copilot -- architecture review and implementation phase" width="800">
 </p>
 
-**Refactoring an existing module** -- the agent audits the current code, maps it
-against the relevant standards, proposes a scoped refactor plan, then applies
-changes only to the bounded module:
+**Refactoring an existing project** -- the agent explores the structure, reads
+the devweaver-lite standards, validates the current architecture, reviews for
+code smells and security issues, then produces a scoped refactor plan with tests:
 
 <p align="center">
-  <img src="assets/vscode_example_refactor.png" alt="DevWeaver-Lite refactor mode in VS Code Copilot" width="400">
+  <img src="assets/vscode_example_refactor.png" alt="DevWeaver-Lite REFACTOR mode in VS Code Copilot -- exploring project structure and planning refactor" width="460">
 </p>
+
+**Running the VALIDATE phase** -- the agent executes the test suite, runs
+bandit and pip-audit security scans, and presents the full results before
+the GIT GATE:
+
+<p align="center">
+  <img src="assets/vscode_example_validation.png" alt="DevWeaver-Lite VALIDATE phase in VS Code Copilot -- test and security scan results" width="800">
+</p>
+
+**Other things you can ask DevWeaver-Lite to do:**
+
+- Build a new API from scratch (FastAPI, Pydantic, OpenAPI docs) following the
+  naming and module structure standards
+- Add a Svelte or SvelteKit frontend to an existing Python backend
+- Review an existing codebase for OWASP LLM Top 10 vulnerabilities
+- Improve test coverage to the 80% threshold on a legacy module
+- Generate a full C4 architecture diagram set (Level 1, 2, 3) for a system
+  you need to document or present
+- Resume a partially finished feature from a known plan phase (CONTINUE mode)
+- Migrate a monolith module into a bounded, independently testable structure
+- Audit and pin all dependency versions before a production release
+- Set up Playwright E2E tests for any user-facing flow
+- Write an ADR for a technology or architecture decision you have already made
 
 ---
 
 ## 10-Phase Workflow
 
-Every task -- regardless of mode or provider -- runs the same sequence:
+Every task runs the same sequence regardless of mode or provider:
 
 ```
 PRE-TASK --> REQUIREMENTS --> FETCH_RULES --> RESEARCH --> ARCHITECTURE
@@ -117,10 +140,10 @@ PRE-TASK --> REQUIREMENTS --> FETCH_RULES --> RESEARCH --> ARCHITECTURE
 | FETCH_RULES | Loads the 3 most relevant standards files (max 3 per phase per R-PD-03) |
 | RESEARCH | CARE-Lite chain: CATALOG scan, Context7 live docs, web search, model knowledge fallback |
 | ARCHITECTURE | Designs bounded modules, creates C4 diagrams, documents decisions as ADRs |
-| **CONFIRM gate** | Presents full architecture to developer -- waits for explicit approval before any code is written |
+| **CONFIRM gate** | Presents full architecture to developer (waits for explicit approval before any code is written) |
 | IMPLEMENT | Writes code, tests, and documentation per the confirmed architecture |
 | VALIDATE | Runs tests, bandit security scan, pip-audit, Playwright E2E |
-| **GIT GATE** | Presents the full diff -- waits for explicit approval before any commit or PR |
+| **GIT GATE** | Presents the full diff (waits for explicit approval before any commit or PR) |
 | POST-TASK | 6-step sweep: architecture sync, issue log, docs update, task close |
 
 Neither gate can be bypassed. The agent cannot write code before CONFIRM or
@@ -137,18 +160,11 @@ commit before GIT GATE, regardless of how the request is phrased.
 
 ## Quick Start
 
-**Step 1**:
+**Step 1**: Pick your provider from the table below and copy its activation file to the correct location.
 
-Pick your provider from the table below and copy its activation file to the correct location.
+**Step 2 (For IDE providers only)**: Copy the MCP config template to your project.
 
-**Step 2 (For IDE providers only)**:
-
-Copy the MCP config template to your project.
-
-**Step 3**:
-
-Tell the agent your project path if using a chat or web provider.
-**(For IDE providers the workspace path should be detected automatically)**
+**Step 3**: Tell the agent your project path if using a chat or web provider. **(For IDE providers the workspace path should be detected automatically)**
 
 ---
 
