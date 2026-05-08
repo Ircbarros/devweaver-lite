@@ -1,5 +1,3 @@
-# DevWeaver-Lite
-
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/devweaver_lite_logo.png">
@@ -24,8 +22,8 @@
     <img src="https://img.shields.io/github/license/ircbarros/devweaver-lite?style=for-the-badge" alt="MIT License">
   </a>
   &nbsp;
-  <a href="https://securityscorecards.dev/viewer/?uri=github.com/ircbarros/devweaver-lite">
-    <img src="https://img.shields.io/ossf-scorecard/github.com/ircbarros/devweaver-lite?style=for-the-badge&label=OpenSSF%20Scorecard" alt="OpenSSF Scorecard">
+  <a href="https://github.com/ircbarros/devweaver-lite/actions/workflows/scorecard.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/ircbarros/devweaver-lite/scorecard.yml?branch=main&style=for-the-badge&label=OpenSSF%20Scorecard" alt="OpenSSF Scorecard">
   </a>
 </p>
 
@@ -53,7 +51,7 @@
 
 DevWeaver-Lite is a zero-infrastructure version of the DevWeaver AI application builder skill.
 
-It delivers the same 10-phase workflow and behavioral guardrails as full DevWeaver but requires no Docker, no databases, and no self-hosted services. 
+It delivers the same 10-phase workflow and behavioral guardrails as full DevWeaver but requires no Docker, no databases, and no self-hosted services.
 
 Copy one file, configure two HTTP endpoints, and your AI assistant becomes a production-grade engineering partner.
 
