@@ -3,26 +3,29 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/devweaver_lite_logo.png">
-    <img src="assets/devweaver_lite_logo.png" alt="DevWeaver-Lite" width="480">
+    <img src="assets/devweaver_lite_logo.png" alt="DevWeaver-Lite" width="640">
   </picture>
 </p>
 
 <p align="center">
-  <strong>A provider-agnostic AI skill for building production-grade applications -- zero infrastructure required.</strong>
+  <strong>A provider-agnostic AI skill for building production-grade applications with zero infrastructure required.</strong>
 </p>
 
 <p align="center">
   <a href="https://github.com/ircbarros/devweaver-lite/actions/workflows/ci.yml?branch=main">
     <img src="https://img.shields.io/github/actions/workflow/status/ircbarros/devweaver-lite/ci.yml?branch=main&style=for-the-badge&label=Build" alt="Build status">
   </a>
+  &nbsp;
   <a href="https://github.com/ircbarros/devweaver-lite/releases">
-    <img src="https://img.shields.io/github/v/release/ircbarros/devweaver-lite?include_prereleases&style=for-the-badge&label=Release" alt="Latest release">
+    <img src="https://img.shields.io/badge/release-v0.1.0--beta.1-blue?style=for-the-badge&label=Release" alt="Latest release">
   </a>
+  &nbsp;
   <a href="LICENSE">
     <img src="https://img.shields.io/github/license/ircbarros/devweaver-lite?style=for-the-badge" alt="MIT License">
   </a>
-  <a href="https://api.securityscorecards.dev/projects/github.com/ircbarros/devweaver-lite">
-    <img src="https://api.securityscorecards.dev/projects/github.com/ircbarros/devweaver-lite/badge?style=for-the-badge" alt="OpenSSF Scorecard">
+  &nbsp;
+  <a href="https://securityscorecards.dev/viewer/?uri=github.com/ircbarros/devweaver-lite">
+    <img src="https://img.shields.io/ossf-scorecard/github.com/ircbarros/devweaver-lite?style=for-the-badge&label=OpenSSF%20Scorecard" alt="OpenSSF Scorecard">
   </a>
 </p>
 
@@ -30,12 +33,15 @@
   <a href="https://github.com/ircbarros/devweaver-lite/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">
     <img src="https://img.shields.io/github/issues/ircbarros/devweaver-lite/good%20first%20issue?style=for-the-badge&label=Good%20First%20Issues&color=7057ff" alt="Good First Issues">
   </a>
+  &nbsp;
   <a href="https://github.com/ircbarros/devweaver-lite/issues?q=is%3Aissue+is%3Aopen+label%3ATODO">
     <img src="https://img.shields.io/github/issues/ircbarros/devweaver-lite/TODO?style=for-the-badge&label=TODOs&color=e4e669" alt="TODOs">
   </a>
+  &nbsp;
   <a href="https://github.com/ircbarros/devweaver-lite/pulls">
     <img src="https://img.shields.io/github/issues-pr/ircbarros/devweaver-lite?style=for-the-badge&label=Pull%20Requests" alt="Open Pull Requests">
   </a>
+  &nbsp;
   <a href="https://www.buymeacoffee.com/ircbarros">
     <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee">
   </a>
