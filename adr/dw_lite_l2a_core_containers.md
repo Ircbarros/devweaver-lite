@@ -16,7 +16,7 @@ responsible for knowledge storage, skill definition, and workflow instructions.
 
 ```mermaid
 ---
-title: Level 2a - Core Containers: Knowledge and Skill Definition
+title: "Level 2a - Core Containers: Knowledge and Skill Definition"
 ---
 flowchart LR
 

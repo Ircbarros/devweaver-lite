@@ -48,12 +48,83 @@
 ---
 > **Status**: `0.1.0-beta.1`
 > This skill is being actively developed. Feedback and contributions are welcome!
+> See [VISION.md](VISION.md) for the project's motivation and design principles.
 
-DevWeaver-Lite is a zero-infrastructure version of the DevWeaver AI application builder skill.
+---
 
-It delivers the same 10-phase workflow and behavioral guardrails as full DevWeaver but requires no Docker, no databases, and no self-hosted services.
+## What is DevWeaver-Lite?
 
-Copy one file, configure two HTTP endpoints, and your AI assistant becomes a production-grade engineering partner.
+AI coding agents are capable but undisciplined by default. They forget earlier
+decisions mid-task, rely on stale training-time library snapshots, skip tests and
+security checks, and make silent architectural choices that create hidden debt.
+
+DevWeaver-Lite is a single-file skill that turns your AI assistant into a
+structured engineering partner. It enforces a 10-phase workflow with two
+mandatory human checkpoints (CONFIRM before code is written, GIT GATE before
+anything is committed), retrieves live documentation via Context7 before every
+implementation, and applies a library of embedded standards (OWASP, naming
+conventions, test coverage) to every session.
+
+Zero Docker. Zero databases. Zero self-hosted services. Copy one file, configure
+two HTTP endpoints, and every session runs the same disciplined process.
+
+---
+
+## When to Use It
+
+| Mode | When | What the agent does |
+|---|---|---|
+| **SCRATCH** | Starting a new product from zero | Defines architecture from standards, creates C4 diagrams and ADRs, then builds with full test and security coverage |
+| **IMPROVE** | Adding features or fixing bugs to an existing codebase | Scopes only touched modules, runs CARE-Lite retrieval, presents a bounded change plan before writing code |
+| **REFACTOR** | Full realignment of an existing project to current standards | Audits the codebase against standards, proposes a phased plan, gets approval before each phase |
+| **ARCHITECTURE** | Reviewing or redesigning system structure | Generates C4 Level 1-3 diagrams and documents decisions as ADRs without touching implementation code |
+
+---
+
+## In Action
+
+**Building a new feature** -- the agent scans the knowledge catalog, retrieves
+live library docs, presents a C4 architecture diagram, waits for approval, then
+implements with tests:
+
+<p align="center">
+  <img src="assets/vscode_example.png" alt="DevWeaver-Lite running in VS Code Copilot -- architecture review and implementation phase" width="800">
+</p>
+
+**Refactoring an existing module** -- the agent audits the current code, maps it
+against the relevant standards, proposes a scoped refactor plan, then applies
+changes only to the bounded module:
+
+<p align="center">
+  <img src="assets/vscode_example_refactor.png" alt="DevWeaver-Lite refactor mode in VS Code Copilot" width="400">
+</p>
+
+---
+
+## 10-Phase Workflow
+
+Every task -- regardless of mode or provider -- runs the same sequence:
+
+```
+PRE-TASK --> REQUIREMENTS --> FETCH_RULES --> RESEARCH --> ARCHITECTURE
+    --> [CONFIRM gate] --> IMPLEMENT --> VALIDATE --> [GIT GATE] --> POST-TASK
+```
+
+| Phase | What happens |
+|---|---|
+| PRE-TASK | Confirms mode (SCRATCH / IMPROVE / REFACTOR / ARCHITECTURE), scans CATALOG.md, sets context budget |
+| REQUIREMENTS | Gathers and clarifies task scope with the developer |
+| FETCH_RULES | Loads the 3 most relevant standards files (max 3 per phase per R-PD-03) |
+| RESEARCH | CARE-Lite chain: CATALOG scan, Context7 live docs, web search, model knowledge fallback |
+| ARCHITECTURE | Designs bounded modules, creates C4 diagrams, documents decisions as ADRs |
+| **CONFIRM gate** | Presents full architecture to developer -- waits for explicit approval before any code is written |
+| IMPLEMENT | Writes code, tests, and documentation per the confirmed architecture |
+| VALIDATE | Runs tests, bandit security scan, pip-audit, Playwright E2E |
+| **GIT GATE** | Presents the full diff -- waits for explicit approval before any commit or PR |
+| POST-TASK | 6-step sweep: architecture sync, issue log, docs update, task close |
+
+Neither gate can be bypassed. The agent cannot write code before CONFIRM or
+commit before GIT GATE, regardless of how the request is phrased.
 
 ---
 
@@ -170,6 +241,17 @@ The agent will ask if it cannot determine the path.
 - **CONFIRM gate not firing**: review the provider-specific activation file -- ensure the full skill definition is present.
 
 For edge-case documentation see `references/teaching/guide_qa_simulation.md`.
+
+---
+
+## Built with DevWeaver-Lite
+
+Have you used this skill on a real project? Share your results with the community.
+
+Open a post in [GitHub Discussions -- Show and Tell](https://github.com/ircbarros/devweaver-lite/discussions/categories/show-and-tell)
+and include what you built, which provider you used, and what the agent produced.
+
+Projects shared there may be featured in future documentation.
 
 ---
 

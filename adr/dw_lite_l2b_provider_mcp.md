@@ -17,7 +17,7 @@ and highlights the Playwright MCP as approval-gated.
 
 ```mermaid
 ---
-title: Level 2b - Container View: Provider Packages and MCP Integration
+title: "Level 2b - Container View: Provider Packages and MCP Integration"
 ---
 flowchart LR
 
